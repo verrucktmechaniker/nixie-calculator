@@ -1,0 +1,49 @@
+#define LATCH   10
+#define CLOCK   13
+#define DATA    11
+#define PWM 9
+
+void setup() {
+
+  pinMode(LATCH,OUTPUT);  // Latch is pin 10 
+  pinMode(CLOCK,OUTPUT); // Clock is pin 13
+  pinMode(DATA,OUTPUT); // Data is pin 11
+  pinMode(PWM,OUTPUT); // PWM (Blank) is pin 9 
+  
+  digitalWrite(LATCH,HIGH);
+  digitalWrite(CLOCK,HIGH);
+  digitalWrite(DATA,HIGH);
+  digitalWrite(PWM,HIGH);
+
+for(uint8_t i = 0; i<128; i++){
+
+delay(100);
+
+digitalWrite(DATA,HIGH);      // Ensure the data pin is high
+digitalWrite  (DATA,  LOW);     // Set data low
+
+digitalWrite  (CLOCK, LOW);   // Set the clock low
+digitalWrite  (CLOCK, HIGH);    // Bring the clock high again
+    
+digitalWrite  (LATCH, LOW);   // Bring the latch low so it can be brought high again.
+digitalWrite  (LATCH, HIGH);    // Bring the latch high to commit the bit to the shift register outputs
+
+
+delay(100);
+
+digitalWrite  (DATA,  LOW);    // Ensure the data pin is low
+digitalWrite  (DATA,  HIGH);     // Set data low
+
+digitalWrite  (CLOCK, LOW);    // Set the clock low
+digitalWrite  (CLOCK, HIGH);     // Bring the clock high again
+    
+digitalWrite  (LATCH, LOW);   // Bring the latch low so it can be brought high again.
+digitalWrite  (LATCH, HIGH);    // Bring the latch high to commit the bit to the shift register outputs
+
+  }
+  
+}
+
+void loop() {
+
+}
