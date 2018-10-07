@@ -1,0 +1,71 @@
+#define LATCH   10
+#define CLOCK   13
+#define DATA    11
+#define PWM 9
+
+
+void setup()
+{
+  
+  pinMode(LATCH, OUTPUT); // Latch is pin 10, FALLING edge copies shift register to latches
+  pinMode(CLOCK, OUTPUT); // Clock is pin 13, FALLING edge clocks in a bit from DATA
+  pinMode(DATA, OUTPUT); // Data is pin 11
+  pinMode(PWM, OUTPUT); // PWM (Blank) is pin 9
+
+  digitalWrite(LATCH, HIGH);
+  digitalWrite(CLOCK, HIGH);
+  digitalWrite(DATA, HIGH);
+  digitalWrite(PWM, HIGH);
+
+delay(10);
+  BlankDisplay();
+  LightDisplay();
+}
+
+
+void BlankDisplay()
+{
+  // Disconnect shift register from data latches:
+  digitalWrite(LATCH, LOW);
+
+
+  // Set the data to LOW
+  digitalWrite  (DATA,  LOW);
+  
+  //  Clock in the LOW 128 times
+  for (uint8_t i = 0; i < 128; i++)
+  {
+    digitalWrite(CLOCK, LOW);   // Clock in one data bit
+    digitalWrite(CLOCK, HIGH);
+    
+    digitalWrite(LATCH, HIGH);    // Bring the latch high to copy the shift registers to output latches
+
+}
+}
+
+void LightDisplay()
+{
+  // Disconnect shift register from data latches:
+  digitalWrite(LATCH, LOW);
+
+
+  // Set the data to LOW
+  digitalWrite  (DATA,  HIGH);
+  
+  //  Clock in the LOW 128 times
+  for (uint8_t i = 0; i < 128; i++)
+  {
+    digitalWrite(CLOCK, LOW);   // Clock in one data bit
+    digitalWrite(CLOCK, HIGH);
+    
+    digitalWrite(LATCH, HIGH);    // Bring the latch high to copy the shift registers to output latches
+
+delay(20); // Slow this step down by 20ms so we can see each output turning on 
+
+}
+}
+
+
+void loop() {
+//nothing
+}
